@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>ASV-simulator</name>
+  <name>asv_simulator</name>
   <version>0.0.0</version>
-  <description>The ASV-simulator package</description>
+  <description>The ASV Simulator package</description>
 
   <maintainer email="stenersen.thomas@gmail.com">Thomas Stenersen</maintainer>
 

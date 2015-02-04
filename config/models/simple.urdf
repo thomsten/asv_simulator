@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot name="asv">
+  <link name="asv">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="package://prosjektoppgave/meshes/boat2.stl" /> -->
+        <box size="8.52 2.97 2.0" />
+      </geometry>
+      <material name="white">
+        <color rgba="0.6 0.6 1 1"/>
+      </material>
+      <origin rpy="0.0 0.0 0.0" xyz="0 0 -0.5"/>
+    </visual>
+  </link>
+</robot>

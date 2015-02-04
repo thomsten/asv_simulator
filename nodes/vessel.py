@@ -1,20 +1,24 @@
 #!/usr/bin/env python
 
+import rospy
 import numpy as np
+import tf
 
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+import geometry_msgs.msg
+import nav_msgs.msg
 
-from matplotlib.patches import Circle
+from tf.transformations import quaternion_from_euler as euler2quat
 
 from utils import normalize_angle
 
 class VesselROS(object):
     """ROS wrapper for Vessel model object"""
 
-    def __init__(self, update_rate, is_main_vessel=False, vesseltype='revolt'):
+    def __init__(self, x0, update_rate, is_main_vessel=False, vesseltype='viknes'):
         self.update_rate = update_rate
+
+        # :TODO: Get the following parameters from the parameter server.
+        # Another node is handling visualization.
         self.is_main_vessel = is_main_vessel
         self.vesseltype = vesseltype
 
@@ -22,7 +26,6 @@ class VesselROS(object):
             self._scale   = 1.0/20.0
             self._length  = 60.0 * self._scale
             self._breadth = 14.5 * self._scale
-            self.model    = VesselModel(x0, h, vesseltype)
             # Vertices of a polygon.
             self._shape = np.asarray([(-self._length/2, -self._breadth/2),
                                       (-self._length/2,  self._breadth/2),
@@ -33,7 +36,6 @@ class VesselROS(object):
             self._scale   = 1.0
             self._length  = 8.52 * self._scale
             self._breadth = 2.97 * self._scale
-            self.model    = VesselModel(x0, h, vesseltype)
             # Vertices of a polygon.
             self._shape = np.asarray([(-self._length/2, -self._breadth/2),
                                       (-self._length/2,  self._breadth/2),
@@ -46,10 +48,73 @@ class VesselROS(object):
             self._scale   = 1.0
             self._length  = 8.52 * self._scale
             self._breadth = 2.97 * self._scale
-            self.model    = VesselModel(x0, h, 'viknes')
+
+        self.model = VesselModel(x0, self.update_rate, vesseltype)
+        self.x = self.model.x
+        self.u_d = 3.0
+        self.r_d = 0.0
 
         # Setup ROS specifics
+        self._tf_broadcaster = tf.TransformBroadcaster()
+        self._cmd_subscriber = rospy.Subscriber('cmd_vel', geometry_msgs.msg.Twist, self._cmdvel_callback)
+        self._pose_publisher = rospy.Publisher('asvpose', geometry_msgs.msg.PoseStamped)
+        self._odom_publisher = rospy.Publisher('odom', nav_msgs.msg.Odometry)
 
+        self.pose = geometry_msgs.msg.PoseStamped()
+        self.pose.header.frame_id = 'map'
+        self.odom = nav_msgs.msg.Odometry()
+        self.odom.header.frame_id = 'map'
+        self.odom.pose.pose = self.pose.pose
+
+
+    def _cmdvel_callback(self, cmd):
+        self.u_d = cmd.linear.x
+        self.r_d = cmd.angular.z
+
+    def _update(self):
+        # Update model
+        self.model.update(self.u_d, np.inf, self.r_d)
+
+        # Transform to quaternions
+        quat = euler2quat(0, 0, self.x[2])
+
+        self.pose.pose.position.x = self.x[0]
+        self.pose.pose.position.y = self.x[1]
+        self.odom.twist.twist.linear.x = self.x[3]
+        self.odom.twist.twist.angular.z = self.x[5]
+
+        self.pose.pose.orientation.x = quat[0]
+        self.pose.pose.orientation.y = quat[1]
+        self.pose.pose.orientation.z = quat[2]
+        self.pose.pose.orientation.w = quat[3]
+
+        self.pose.header.stamp = rospy.Time.now()
+        self.pose.header.seq += 1
+
+        self.odom.header.stamp = rospy.Time.now()
+        self.odom.header.seq += 1
+
+
+        self._pose_publisher.publish(self.pose)
+        self._odom_publisher.publish(self.odom)
+        self._tf_broadcaster.sendTransform((self.pose.pose.position.x,
+                                            self.pose.pose.position.y,
+                                            self.pose.pose.position.z),
+                                           (self.pose.pose.orientation.x,
+                                            self.pose.pose.orientation.y,
+                                            self.pose.pose.orientation.z,
+                                            self.pose.pose.orientation.w),
+                                           rospy.Time.now(),
+                                           "asv",
+                                           "map")
+
+
+    def start_sim(self):
+        r = rospy.Rate(1. / self.update_rate)
+
+        while not rospy.is_shutdown():
+            self._update()
+            r.sleep()
 
 class VesselModel(object):
     """3DOF nonlinear vessel model"""
@@ -180,4 +245,10 @@ class VesselModel(object):
 
 
 if __name__ == "__main__":
-    pass
+    rospy.init_node("ASV_simulator")
+
+    x0 = np.array([0,0,0, 2.0,0,0])
+    update_rate = 0.05
+
+    myASV = VesselROS(x0, update_rate, is_main_vessel=True, vesseltype='viknes')
+    myASV.start_sim()
