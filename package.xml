@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <name>ASV-simulator</name>
+  <version>0.0.0</version>
+  <description>The ASV-simulator package</description>
+
+  <maintainer email="stenersen.thomas@gmail.com">Thomas Stenersen</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>MIT</license>
+
+  <url type="repository">http://github.com/thomsten/ASV-simulator</url>
+
+  <author email="stenersen.thomas@gmail.com">Thomas Stenersen</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>tf</build_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>tf</run_depend>
+
+
+  <export>
+
+  </export>
+</package>
