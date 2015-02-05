@@ -5,6 +5,11 @@
         respawn="false"
         output="screen" />
   <node pkg="asv_simulator"
+        name="LOSNode"
+        type="ctrl_LOS_guidance.py"
+        respawn="false"
+        output="screen" />
+  <node pkg="asv_simulator"
         name="meshnode"
         type="meshpublisher.py"
         respawn="false"

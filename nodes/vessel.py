@@ -52,6 +52,7 @@ class VesselROS(object):
         self.model = VesselModel(x0, self.update_rate, vesseltype)
         self.x = self.model.x
         self.u_d = 3.0
+        self.psi_d = np.inf
         self.r_d = 0.0
 
         # Setup ROS specifics
@@ -68,12 +69,14 @@ class VesselROS(object):
 
 
     def _cmdvel_callback(self, cmd):
-        self.u_d = cmd.linear.x
-        self.r_d = cmd.angular.z
+        self.u_d   = cmd.linear.x
+        # :TODO: Fix this ugly hack?
+        self.psi_d = cmd.angular.y
+        self.r_d   = cmd.angular.z
 
     def _update(self):
         # Update model
-        self.model.update(self.u_d, np.inf, self.r_d)
+        self.model.update(self.u_d, self.psi_d, self.r_d)
 
         # Transform to quaternions
         quat = euler2quat(0, 0, self.x[2])
@@ -209,7 +212,7 @@ class VesselModel(object):
         Fx = (self.d1u + self.d2u*np.abs(self.x[3])) * self.x[3] + \
              (self.x[4]*self.x[5] + self.Kp_p*(u_d - self.x[3])) * self.m
 
-        if psi_d == np.Inf:
+        if psi_d == np.inf:
             Fy = 1 / self.lr * ( (self.d1r + self.d2r*np.abs(self.x[5]))*self.x[5] + \
                                  self.Iz * self.Kp_r*(r_d - self.x[5]))
         else:

@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 import rospy
-
+import numpy as np
 from visualization_msgs.msg import Marker
+from tf.transformations import quaternion_from_euler as euler2quat
 
 from geometry_msgs.msg import Pose
 
@@ -17,20 +18,24 @@ if __name__ == "__main__":
     mk.ns = 'colormap'
     mk.id = 0
     mk.type = Marker.MESH_RESOURCE
-    mk.mesh_resource = "package://asv_simulator/meshes/testmap.stl"
+    mk.mesh_resource = "package://asv_simulator/meshes/hovik.stl"
     mk.action = Marker.ADD
     mk.mesh_use_embedded_materials = True
 
     mk.pose = Pose()
 
-    mk.pose.position.x = 0
-    mk.pose.position.y = 0
+    mk.pose.position.x = 0.
+    mk.pose.position.y = 0.
 
-    mk.pose.orientation.w = 1
+    q = euler2quat(0,0,np.pi)
+    print q
 
-    mk.scale.x = 1
-    mk.scale.y = 1
-    mk.scale.z = 1
+    mk.pose.orientation.z = q[2]
+    mk.pose.orientation.w = q[3]
+
+    mk.scale.x = 35.
+    mk.scale.y = 35.
+    mk.scale.z = 10.
 
     mk.lifetime = rospy.Duration()
     mk.color.a = 1
