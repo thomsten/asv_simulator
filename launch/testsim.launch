@@ -1,7 +1,7 @@
 <launch>
   <node pkg="asv_simulator"
         name="ASVNode"
-        type="vessel.py"
+        type="asv_simulator_node"
         respawn="false"
         output="screen" />
   <node pkg="asv_simulator"
