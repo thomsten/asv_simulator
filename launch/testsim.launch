@@ -1,25 +1,43 @@
 <launch>
-  <node pkg="asv_simulator"
-        name="ASVNode"
-        type="asv_simulator_node"
-        respawn="false"
-        output="screen" />
-  <node pkg="asv_simulator"
-        name="LOSNode"
-        type="ctrl_LOS_guidance.py"
-        respawn="false"
-        output="screen" />
-  <node pkg="asv_simulator"
-        name="meshnode"
-        type="meshpublisher.py"
-        respawn="false"
-        output="screen" />
-  <param name="robot_description" textfile="$(find asv_simulator)/config/models/simple.urdf" />
-  <node pkg="robot_state_publisher"
-        type="state_publisher"
-        name="tf_broadcaster" />
 
-  <!-- <param name="use_sim_time" type="bool" value="true" /> -->
+  <!-- Launch Controller -->
+  <!-- <include file="$(find asv_simulator)/launch/control/xboxctrl.launch" /> -->
+  <group ns="asv">
+    <node pkg="asv_simulator"
+          name="ASVNode"
+          type="asv_simulator_node"
+          respawn="false"
+          output="screen">
+      <rosparam param="initial_state">[25.0,1.0,1.0,0.,0.,0.]</rosparam>
+    </node>
+    <node pkg="asv_simulator"
+          name="LOSNode"
+          type="ctrl_LOS_guidance.py"
+          respawn="false"
+          output="screen">
+      <rosparam command="load" file="$(find asv_simulator)/config/waypoint_list2.yaml" />
+    </node>
+
+    <param name="robot_description" textfile="$(find asv_simulator)/config/models/simple.urdf" />
+    <node pkg="robot_state_publisher"
+          type="state_publisher"
+          name="tf_broadcaster" />
+  </group>
+  <node pkg="asv_obstacle_tracker"
+        name="obstacle_tracker"
+        type="obstacle_tracker_node.py"
+        respawn="false"
+        output="screen" />
+
+
+
+  <!-- <node pkg="asv_simulator" -->
+  <!--       name="meshnode" -->
+  <!--       type="meshpublisher.py" -->
+  <!--       respawn="false" -->
+  <!--       output="screen" /> -->
+
+
   <node pkg="rviz"
         type="rviz"
         name="rviz"

@@ -1,5 +1,7 @@
 #include "ros/ros.h"
 
+#include <Eigen/Dense>
+
 // Message types
 #include "tf/transform_broadcaster.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -19,13 +21,38 @@ int main(int argc, char* argv[])
 
   ros::NodeHandle n;
 
-  VesselNode mySys = VesselNode();
-  Vessel myVessel = Vessel();
+  std::vector<double> initial_state;
+
+  Vessel myVessel;
+
+
+  std::string name = ros::names::clean(ros::this_node::getNamespace());
+  if (name.empty())
+    name = "asv";
+
+  ROS_INFO("Parent: %s", name.c_str());
+
+  if (ros::param::get("~initial_state", initial_state))
+    {
+      /// @todo This isn't very safe...
+      myVessel.setState(Eigen::Vector3d(initial_state[0], initial_state[1], initial_state[2]),
+                        Eigen::Vector3d(initial_state[3], initial_state[4], initial_state[5]));
+    }
+  else
+    {
+      ROS_ERROR("No initial state specified, defaulting to [0,0,0,0,0,0].");
+
+    }
+
+  VesselNode mySys;
+  mySys.tf_name = name;
 
   tf::TransformBroadcaster tf = tf::TransformBroadcaster();
-  ros::Publisher pose_pub = n.advertise<geometry_msgs::PoseStamped>("asvpose", 1000);
-  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("odom", 1000);
-  ros::Subscriber cmd_sub = n.subscribe("cmd_vel", 1000, &VesselNode::cmdCallback, &mySys);
+  ros::Publisher pose_pub = n.advertise<geometry_msgs::PoseStamped>("pose", 10);
+  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("state", 10);
+  ros::Subscriber cmd_sub = n.subscribe("cmd_vel", 1, &VesselNode::cmdCallback, &mySys);
+
+
 
   mySys.initialize(&tf, &pose_pub, &odom_pub, &cmd_sub, &myVessel);
   mySys.start();
@@ -109,12 +136,12 @@ void VesselNode::publishData()
   tf_->sendTransform(tf::StampedTransform(transform,
                                           ros::Time::now(),
                                           "map",
-                                          "asv"));
+                                          tf_name));
 
   odom.header.seq = counter;
   odom.header.stamp = ros::Time::now();
   odom.header.frame_id = "map";
-  odom.child_frame_id = "asv";
+  odom.child_frame_id = tf_name;
 
   odom.pose.pose.position.x = eta[0];
   odom.pose.pose.position.y = eta[1];

@@ -27,6 +27,8 @@ class VesselNode
 
   ~VesselNode();
 
+  std::string tf_name;
+
  private:
   Vessel *theVessel_;
 

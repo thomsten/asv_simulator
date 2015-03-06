@@ -34,6 +34,7 @@ class Vessel
   Vessel();
   void updateSystem(double, double, double);
   void printPose();
+  void setState(Eigen::Vector3d eta, Eigen::Vector3d nu);
   void getState(Eigen::Vector3d &eta, Eigen::Vector3d &nu);
   double getDT();
   ~Vessel();
@@ -41,7 +42,7 @@ class Vessel
  private:
   void updateControlInput(double, double, double);
   
-  Eigen::Vector3d eta; 
+  Eigen::Vector3d eta;
   Eigen::Vector3d nu; 
   Eigen::Vector3d tau;
 

@@ -56,7 +56,7 @@ Vessel::Vessel()
   Dvv  = Eigen::Vector3d::Zero();
 
   eta = Eigen::Vector3d::Zero();
-  nu  = Eigen::Vector3d::UnitX() * 3.0;
+  nu  = Eigen::Vector3d::Zero();
 }
 
 /**
@@ -74,6 +74,12 @@ double Vessel::getDT()
 void Vessel::printPose()
 {
   std::cout << eta << std::endl << std::endl;
+}
+
+void Vessel::setState(Eigen::Vector3d eta_new, Eigen::Vector3d nu_new)
+{
+  eta = eta_new;
+  nu = nu_new;
 }
 
 void Vessel::getState(Eigen::Vector3d &eta2, Eigen::Vector3d &nu2)
@@ -155,6 +161,10 @@ void Vessel::updateControlInput(double u_d, double psi_d, double r_d)
  */
 double normalize_angle(double val)
 {
+
+  if (isinf(val))
+    return val;
+
   while (val <= -M_PI)
     val += 2*M_PI;
 
@@ -173,6 +183,9 @@ double normalize_angle(double angle, double angle_ref)
 {
   double new_angle = 0;
   double diff = angle_ref - angle;
+
+  if (isinf(angle) || isinf(angle_ref))
+    return angle;
 
   // Get angle within 2PI of angle_ref
   if (diff > 0)

@@ -19,7 +19,7 @@ class LOSGuidanceROS(object):
         self.cwp  = 0
 
         self._cmd_publisher   = rospy.Publisher("cmd_vel", geometry_msgs.msg.Twist)
-        self._odom_subscriber = rospy.Subscriber("odom", nav_msgs.msg.Odometry, self._odom_callback)
+        self._odom_subscriber = rospy.Subscriber("state", nav_msgs.msg.Odometry, self._odom_callback)
         self._wps_publisher   = rospy.Publisher("waypoints", Marker)
 
 
@@ -41,7 +41,7 @@ class LOSGuidanceROS(object):
             return
 
         if self._first_draw:
-            for wp in range(0, self.nwp):
+            for wp in range(1, self.nwp):
                 mk = Marker()
                 mk.header.seq += 1
                 mk.header.frame_id = "map"
@@ -143,7 +143,7 @@ class LOSGuidance(Controller):
     def __init__(self, R2=20**2, u_d = 3.0, switch_criterion='circle'):
         self.R2 = R2 # Radii of acceptance (squared)
         self.R  = np.sqrt(R2)
-        self.de = 20 # Lookahead distance
+        self.de = 30 # Lookahead distance
 
         self.cWP = 0 # Current waypoint
         self.wp = None
@@ -233,10 +233,14 @@ class LOSGuidance(Controller):
 
 if __name__ == "__main__":
     rospy.init_node("LOS_Guidance_controller")
-    print "yolo"
+    print "Doing great!\n\n\n\n\n\n"
+
     guide = LOSGuidanceROS(.2)
 
-    wps = np.array([[50,50],[120,70],[200,150],[100,0]])
+    waypoints = rospy.get_param("~waypoints")
+
+    print waypoints
+    wps = np.array(waypoints)
     guide.set_waypoints( wps)
 
     guide.run_controller()
