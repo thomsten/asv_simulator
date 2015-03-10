@@ -148,6 +148,11 @@ void VesselNode::publishData()
 
   tf::quaternionTFToMsg(q, odom.pose.pose.orientation);
 
+  odom.twist.twist.linear.x = nu[0];
+  odom.twist.twist.linear.y = nu[1];
+  odom.twist.twist.angular.z = nu[2];
+
+
   odom_pub_->publish(odom);
 
   pose.header = odom.header;

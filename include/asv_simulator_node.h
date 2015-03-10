@@ -43,7 +43,6 @@ class VesselNode
   double psi_d_;
   double r_d_;
 
-//boost::mutex twist_mutex_;
 };
 
 
