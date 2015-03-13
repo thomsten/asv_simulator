@@ -12,41 +12,13 @@ double normalize_angle(double val);
 double normalize_angle(double angle, double angle_ref);
 
 
-// int main(int argc, char* argv[])
-// {
-
-//   ros::init(argc, argv, "asv_simulator_node");
-//   ros::start();
-
-//   ROS_INFO("Started ASV Simulator node");
-
-
-//   Vessel myVessel = Vessel();
-
-//   for (int i=0; i<10; ++i)
-//     {
-//       myVessel.updateSystem(3.0, 0.0, 0.0);
-//       myVessel.printPose();
-//     }
-
-
-//   Eigen::Vector3d v1(0,0,0), v2(4,5,6);
-
-//   v1 = v2;
-//   v2(1) = 1000;
-
-//   std::cout << "Eigen test" << std::endl << v1 << std::endl << v2 << std::endl;
-
-//   ros::spin();
-//   ros::shutdown();
-//   return 0;
-// }
-
 /**
  * Constructor
  */
 Vessel::Vessel()
 {
+
+
   Minv <<
     1.0/M, 0.0, 0.0,
     0.0, 1.0/M, 0.0,
@@ -112,8 +84,6 @@ void Vessel::updateSystem(double u_d, double psi_d, double r_d)
 
   // Keep yaw within [-PI,PI)
   eta[2] = normalize_angle(eta[2]);
-
-  //this->printPose();
 }
 
 

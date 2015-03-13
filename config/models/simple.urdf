@@ -2,13 +2,12 @@
 <robot name="asv">
   <link name="asv">
     <visual>
-      <origin rpy="1.570796326 0.0 3.14159265" xyz="30. -7.25 -5.0"/>
+      <origin rpy="1.570796326 0.0 3.14159265" xyz="30. -8.0 -5.0"/>
       <geometry>
-        <mesh filename="package://asv_simulator/meshes/Revolt.STL" scale="0.001 0.001 0.001"/>
-        <!-- <box size="8.52 2.97 2.0" /> -->
+        <mesh filename="package://asv_simulator/meshes/Revolt.STL" scale="0.0001 0.0001 0.0001"/>
       </geometry>
       <material name="white">
-        <color rgba="0.6 0.6 1 1"/>
+        <color rgba="0.4 0.4 1 1"/>
       </material>
     </visual>
   </link>

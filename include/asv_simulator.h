@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 
 // Constants
+/// @todo Use rosparam to get paramaters and make the model more general.
 const double DT  = 0.05;
 
 const double M   = 3300.0;

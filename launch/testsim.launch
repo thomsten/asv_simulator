@@ -17,12 +17,13 @@
           respawn="false"
           output="screen">
       <rosparam command="load" file="$(find asv_simulator)/config/waypoint_list2.yaml" />
+      <remap from="cmd_vel" to="LOS/cmd_vel" />
     </node>
 
-    <param name="robot_description" textfile="$(find asv_simulator)/config/models/simple.urdf" />
+    <param name="robot_description" textfile="$(find asv_simulator)/config/models/revolt.urdf" />
     <node pkg="robot_state_publisher"
           type="state_publisher"
-          name="tf_broadcaster" />
+          name="tf_broadcaster" />\lg
   </group>
 
   <!-- <node pkg="asv_simulator" -->
