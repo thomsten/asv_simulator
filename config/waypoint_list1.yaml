@@ -1,5 +1,5 @@
 # Head-on situation
-waypoints: [[250.0, 250.0], [0.0, 0.0]]
+# waypoints: [[250.0, 250.0], [0.0, 0.0]]
 
 # Crossing from right
-# waypoints: [[200.0, 250.0], [-250.0, 250.0]]
+waypoints: [[200.0, 250.0], [-250.0, 250.0]]
