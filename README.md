@@ -1,2 +1,2 @@
-# Master's Thesis Simulator
-This project implements the Python/ROS simulator used in my Master's thesis at NTNU.
+# ASV Simulator
+This package implements a simple nonlinear 3DOF vessel simulator used in my Master's thesis.
