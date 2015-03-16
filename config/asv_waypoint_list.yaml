@@ -2,4 +2,7 @@
 # waypoints: [[0.0, 0.0], [250.0, 250.0]]
 
 # Crossing from right
+# waypoints: [[0.0, 0.0], [0.0, 500.0]]
+
+# Multiple obstacle scenario
 waypoints: [[0.0, 0.0], [0.0, 500.0]]

@@ -62,8 +62,8 @@ void Vessel::getState(Eigen::Vector3d &eta2, Eigen::Vector3d &nu2)
 
 void Vessel::updateSystem(double u_d, double psi_d, double r_d)
 {
-  // Ensure -PI <= psi_d < PI
-  psi_d = normalize_angle(psi_d);
+  // Ensure psi_d is compatible with psi
+  psi_d = normalize_angle(psi_d, eta[2]);
 
   Eigen::AngleAxisd rot_z = Eigen::AngleAxisd(eta[2], Eigen::Vector3d::UnitZ());
 
@@ -173,7 +173,7 @@ double normalize_angle(double angle, double angle_ref)
     {
       new_angle += 2*M_PI;
     }
-  else
+  else if (diff < -M_PI)
     {
       new_angle -= 2*M_PI;
     }

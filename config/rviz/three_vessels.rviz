@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /TF1/Frames1
         - /ASV1/Path1
+        - /Ship11/Ship11
       Splitter Ratio: 0.5
     Tree Height: 867
   - Class: rviz/Selection
@@ -63,6 +64,8 @@ Visualization Manager:
           Value: true
         obstacles/ship1:
           Value: true
+        obstacles/ship2:
+          Value: true
       Marker Scale: 50
       Name: TF
       Show Arrows: true
@@ -73,6 +76,8 @@ Visualization Manager:
           asv:
             {}
           obstacles/ship1:
+            {}
+          obstacles/ship2:
             {}
       Update Interval: 0
       Value: true
@@ -192,6 +197,49 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Ship1
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: visualization_marker
+          Name: S2_Wapoints
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Angle Tolerance: 0.1
+          Class: rviz/Odometry
+          Color: 85; 170; 0
+          Enabled: true
+          Keep: 20
+          Length: 10
+          Name: S2_Path
+          Position Tolerance: 20
+          Topic: /obstacles/ship2/state
+          Value: true
+        - Alpha: 1
+          Class: rviz/RobotModel
+          Collision Enabled: false
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+            obstacles/ship1:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+          Name: Ship2
+          Robot Description: obstacles/ship2/robot_description
+          TF Prefix: ""
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+      Enabled: true
+      Name: Ship2
   Enabled: true
   Global Options:
     Background Color: 2; 65; 84
@@ -216,7 +264,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 454.862
+      Distance: 194.345
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -251,5 +299,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 960
-  X: 2860
+  X: 2853
   Y: 24

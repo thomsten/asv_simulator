@@ -213,7 +213,6 @@ class LOSGuidance(Controller):
         Xr = np.arctan2( -e, self.de)
         psi_d = self.Xp + Xr
 
-
         return self.u_d, psi_d, switched
 
     def visualize(self, fig, axarr, t, n):
@@ -233,14 +232,15 @@ class LOSGuidance(Controller):
 
 if __name__ == "__main__":
     rospy.init_node("LOS_Guidance_controller")
-    print "Doing great!\n\n\n\n\n\n"
-
-    guide = LOSGuidanceROS(.2)
 
     waypoints = rospy.get_param("~waypoints")
+    u_d = rospy.get_param("~u_d")
+
+    guide = LOSGuidanceROS(.2, u_d=u_d)
+
 
     print waypoints
     wps = np.array(waypoints)
-    guide.set_waypoints( wps)
+    guide.set_waypoints(wps)
 
     guide.run_controller()

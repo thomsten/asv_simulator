@@ -1,0 +1,53 @@
+<launch>
+  <group ns="obstacles">
+    <!-- **************** SHIP 1 **************** -->
+    <group ns="ship1">
+      <node pkg="asv_simulator"
+            name="ship1"
+            type="asv_simulator_node"
+            respawn="false"
+            output="screen">
+        <rosparam param="initial_state">[0.0, 100.0, 1.57, 1.0, 0.0, 0.0]</rosparam>
+      </node>
+      <node pkg="asv_simulator"
+            name="LOSNode"
+            type="ctrl_LOS_guidance.py"
+            respawn="false"
+            output="screen">
+        <rosparam param="u_d">1.0</rosparam>
+        <rosparam command="load" file="$(find asv_simulator)/config/ship1_waypoint_list.yaml" />
+      </node>
+
+      <param name="robot_description" textfile="$(find asv_simulator)/config/models/ship1.urdf" />
+
+      <node pkg="robot_state_publisher"
+            type="state_publisher"
+            name="tf_broadcaster2" />
+    </group>
+
+    <!-- **************** SHIP 2 **************** -->
+    <group ns="ship2">
+      <node pkg="asv_simulator"
+            name="ship2"
+            type="asv_simulator_node"
+            respawn="false"
+            output="screen">
+        <rosparam param="initial_state">[250.0, 250.0, 3.14, 1.0, 0.0, 0.0]</rosparam>
+      </node>
+      <node pkg="asv_simulator"
+            name="LOSNode"
+            type="ctrl_LOS_guidance.py"
+            respawn="false"
+            output="screen">
+        <rosparam param="u_d">3.0</rosparam>
+        <rosparam command="load" file="$(find asv_simulator)/config/ship2_waypoint_list.yaml" />
+      </node>
+
+      <param name="robot_description" textfile="$(find asv_simulator)/config/models/ship2.urdf" />
+
+      <node pkg="robot_state_publisher"
+            type="state_publisher"
+            name="tf_broadcaster2" />
+    </group>
+  </group>
+</launch>
