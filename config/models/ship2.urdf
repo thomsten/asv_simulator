@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<robot name="ship1">
-  <link name="obstacles/ship1">
+<robot name="ship2">
+  <link name="obstacles/ship2">
     <visual>
       <origin rpy="1.570796326 0.0 3.14159265" xyz="3. -0.8 -0.5"/>
       <geometry>
