@@ -1,0 +1,5 @@
+# rosdoc configuration
+- builder: doxygen
+  file_patterns: '*.c *.cpp *.h *.cc *.hh *.dox'
+  javadoc_autobrief: true
+  tab_size: 4

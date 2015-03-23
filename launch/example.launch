@@ -1,0 +1,30 @@
+<launch>
+  <group ns="asv">
+    <node pkg="asv_simulator"
+          name="ASVNode"
+          type="asv_simulator_node"
+          respawn="false"
+          output="screen">
+      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes2.yaml" />
+      <rosparam param="initial_state">[0.0, 0.0, 1.57, 1.,0.,0.]</rosparam>
+    </node>
+    <node pkg="asv_simulator"
+          name="LOSNode"
+          type="ctrl_LOS_guidance.py"
+          respawn="false"
+          output="screen">
+      <rosparam param="u_d">3.0</rosparam>
+      <rosparam command="load" file="$(find asv_simulator)/config/waypoint_test_list.yaml" />
+    </node>
+
+    <param name="robot_description" textfile="$(find asv_simulator)/config/models/revolt.urdf" />
+    <node pkg="robot_state_publisher"
+          type="state_publisher"
+          name="tf_broadcaster" />
+  </group>
+
+  <node pkg="rviz"
+        type="rviz"
+        name="rviz"
+        args="-d $(find asv_simulator)/config/rviz/config.rviz" />
+</launch>

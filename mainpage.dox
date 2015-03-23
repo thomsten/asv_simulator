@@ -1,0 +1,8 @@
+/**
+\mainpage
+
+\b asv_simulator is a ROS package used to simulate the dynamics of a general
+3DOF nonlinear (ocean) vessel.
+
+It uses the notation of Fossen, 2011.
+*/
