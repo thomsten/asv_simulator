@@ -172,7 +172,8 @@ void Vessel::updateControlInput(double u_d, double psi_d, double r_d)
     }
   else
     {
-      Fy = (Kp_psi * I_z / rudder_length) * ((psi_d - eta[2]) - Kd_psi*nu[2]);
+      Fy = (Kp_psi * I_z ) * ((psi_d - eta[2]) - Kd_psi*nu[2]);
+      Fy *= 1.0 / rudder_length;
     }
 
   if (Fx < Fx_min)
@@ -188,8 +189,6 @@ void Vessel::updateControlInput(double u_d, double psi_d, double r_d)
   tau[0] = Fx;
   tau[1] = Fy;
   tau[2] = rudder_length * Fy;
-
-  ROS_INFO("Tau: %.1f, %.1f, %.1f", tau[0], tau[1], tau[2]);
 }
 
 /**
