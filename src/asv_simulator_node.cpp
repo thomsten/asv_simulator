@@ -19,43 +19,30 @@ int main(int argc, char* argv[])
 
   ROS_INFO("Started ASV Simulator node");
 
-  ros::NodeHandle n;
-
-  std::vector<double> initial_state;
-
-  Vessel myVessel;
-
+  ros::NodeHandle nh;
+  ros::NodeHandle priv_nh("~");
 
   std::string name = ros::names::clean(ros::this_node::getNamespace());
   if (name.empty())
     name = "asv";
 
-  ROS_INFO("Parent: %s", name.c_str());
 
-  if (ros::param::get("~initial_state", initial_state))
-    {
-      /// @todo This isn't very safe...
-      myVessel.setState(Eigen::Vector3d(initial_state[0], initial_state[1], initial_state[2]),
-                        Eigen::Vector3d(initial_state[3], initial_state[4], initial_state[5]));
-    }
-  else
-    {
-      ROS_ERROR("No initial state specified, defaulting to [0,0,0,0,0,0].");
+  Vessel my_vessel;
 
-    }
+  my_vessel.initialize(priv_nh);
 
-  VesselNode mySys;
-  mySys.tf_name = name;
+  VesselNode my_vessel_node;
+  my_vessel_node.tf_name = name;
 
   tf::TransformBroadcaster tf = tf::TransformBroadcaster();
-  ros::Publisher pose_pub = n.advertise<geometry_msgs::PoseStamped>("pose", 10);
-  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("state", 10);
-  ros::Subscriber cmd_sub = n.subscribe("cmd_vel", 1, &VesselNode::cmdCallback, &mySys);
+  ros::Publisher pose_pub = nh.advertise<geometry_msgs::PoseStamped>("pose", 10);
+  ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("state", 10);
+  ros::Subscriber cmd_sub = nh.subscribe("cmd_vel", 1, &VesselNode::cmdCallback, &my_vessel_node);
 
 
 
-  mySys.initialize(&tf, &pose_pub, &odom_pub, &cmd_sub, &myVessel);
-  mySys.start();
+  my_vessel_node.initialize(&tf, &pose_pub, &odom_pub, &cmd_sub, &my_vessel);
+  my_vessel_node.start();
 
   ros::shutdown();
   return 0;

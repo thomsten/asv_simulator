@@ -6,6 +6,7 @@
           respawn="false"
           output="screen">
       <rosparam param="initial_state">[0.0, 0.0, 1.57, 1.,0.,0.]</rosparam>
+      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
     </node>
     <node pkg="asv_simulator"
           name="LOSNode"

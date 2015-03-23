@@ -1,0 +1,44 @@
+# Parameters for Viknes 830 based on Loe, 2008.
+mass: 3300.0 # kg
+inertia: 1320.0 # kg/m2
+
+# Added mass terms
+X_udot: 0.0
+Y_vdot: 0.0
+Y_rdot: 0.0
+N_vdot: 0.0
+N_rdot: 0.0
+
+# Linear damping terms [X_u, Y_v, Y_r, N_v, N_r]
+X_u: -16.6
+Y_v: -9900.0
+Y_r: 0.0
+N_v: 0.0
+N_r: -330.0
+
+# Nonlinear damping terms [X_|u|u, Y_|v|v, N_|r|r, X_uuu, Y_vvv, N_rrr]
+X_uu:  -8.25
+Y_vv: 330.0
+N_rr:   0.0
+X_uuu:  0.0
+Y_vvv:  0.0
+N_rrr:  0.0
+
+# Force limits
+Fx_min: -800.0
+Fx_max: 2310.0
+Fy_min:  -28.8
+Fy_max:   28.8
+
+# Other
+rudder_length: 4.0
+
+# Control parameters
+Kp_u: 0.1
+Kp_psi: 5.0
+Kd_psi: 1.0
+Kp_r: 8.0
+
+# Model update interval
+dt: 0.05
+
