@@ -2,9 +2,9 @@
 <robot name="asv">
   <link name="asv">
     <visual>
-      <origin rpy="1.570796326 0.0 3.14159265" xyz="3. -0.8 -0.5"/>
+      <origin rpy="1.570796326 0.0 1.570796326" xyz="-4.15 -1.6 -1.5"/>
       <geometry>
-        <mesh filename="package://asv_simulator/meshes/Revolt.STL" scale="0.0001 0.0001 0.0001"/>
+        <mesh filename="package://asv_simulator/meshes/viksund.STL" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white">
         <color rgba="0.4 0.4 1 1"/>
