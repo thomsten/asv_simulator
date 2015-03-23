@@ -8,8 +8,13 @@
 // Linear algebra math
 #include <Eigen/Dense>
 
+
+/// Make sure angle is between [-PI, PI)
 double normalize_angle(double val);
-double normalize_angle(double angle, double angle_ref);
+
+
+/// Makes angle compatible with angle_ref such that the numerical diference is at most PI.
+double normalize_angle_diff(double angle, double angle_ref);
 
 
 Vessel::Vessel()
@@ -132,7 +137,7 @@ void Vessel::getState(Eigen::Vector3d &eta2, Eigen::Vector3d &nu2)
 void Vessel::updateSystem(double u_d, double psi_d, double r_d)
 {
   // Ensure psi_d is "compatible" with psi
-  psi_d = normalize_angle(psi_d, eta[2]);
+  psi_d = normalize_angle_diff(psi_d, eta[2]);
 
   Eigen::AngleAxisd rot_z = Eigen::AngleAxisd(eta[2], Eigen::Vector3d::UnitZ());
 
@@ -191,11 +196,6 @@ void Vessel::updateControlInput(double u_d, double psi_d, double r_d)
   tau[2] = rudder_length * Fy;
 }
 
-/**
- * Make sure angle is between [-PI, PI)
- *
- * @todo Naming of function
- */
 double normalize_angle(double val)
 {
 
@@ -211,12 +211,7 @@ double normalize_angle(double val)
   return val;
 }
 
-/**
- * Makes angle compatible with angle_ref such that the numerical diference is at most PI.
- *
- * @todo Naming of function.
- */
-double normalize_angle(double angle, double angle_ref)
+double normalize_angle_diff(double angle, double angle_ref)
 {
   double new_angle = 0;
   double diff = angle_ref - angle;
