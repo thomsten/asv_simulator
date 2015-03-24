@@ -52,3 +52,11 @@ docs/_build/
 
 # PyBuilder
 target/
+/config/xbox_ctrl_config.yaml
+/config/rviz/two_vessels.rviz.old
+/doc/
+/meshes/hovik.stl
+/meshes/islands.stl
+/meshes/s1.stl
+/meshes/s2.stl
+/launch/control/
