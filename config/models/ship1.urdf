@@ -6,7 +6,7 @@
       <geometry>
         <mesh filename="package://asv_simulator/meshes/Revolt.STL" scale="0.0001 0.0001 0.0001"/>
       </geometry>
-      <material name="white">
+      <material name="yellowish">
         <color rgba="0.8 0.6 0.4 1"/>
       </material>
     </visual>
