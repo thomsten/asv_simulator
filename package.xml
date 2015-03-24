@@ -1,17 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <name>asv_simulator</name>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
   <description>
     This package provides a simulated nonlinear 3DOF surface vessel.
   </description>
 
   <maintainer email="stenersen.thomas@gmail.com">Thomas Stenersen</maintainer>
 
-
-  <!-- One license tag required, multiple allowed, one license per tag -->
-  <!-- Commonly used license strings: -->
-  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
   <license>MIT</license>
 
   <url type="repository">http://github.com/thomsten/asv_simulator</url>
