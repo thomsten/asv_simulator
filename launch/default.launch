@@ -7,6 +7,7 @@
   <arg name="use_vo" default="True" />
   <arg name="namespace" default="asv" />
   <arg name="shipname" default="asv" />
+
   <group ns="$(arg namespace)">
     <node pkg="asv_simulator"
           name="$(arg shipname)"
@@ -16,9 +17,9 @@
       <rosparam param="initial_state" subst_value="True">$(arg initial_state)</rosparam>
       <rosparam command="load" file="$(arg vessel_param_file)" />
     </node>
-    <node pkg="asv_simulator"
-          name="LOSNode"
-          type="ctrl_LOS_guidance.py"
+    <node pkg="asv_path_trackers"
+          name="PPNode"
+          type="asv_ctrl_pp_node.py"
           respawn="false"
           output="screen">
       <rosparam param="u_d" subst_value="True">$(arg u_d)</rosparam>
