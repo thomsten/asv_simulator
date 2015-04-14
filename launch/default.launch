@@ -17,6 +17,7 @@
       <rosparam param="initial_state" subst_value="True">$(arg initial_state)</rosparam>
       <rosparam command="load" file="$(arg vessel_param_file)" />
     </node>
+
     <node pkg="asv_path_trackers"
           name="PPNode"
           type="asv_ctrl_pp_node.py"
