@@ -16,7 +16,7 @@
             respawn="false"
             output="screen">
         <rosparam param="u_d">1.0</rosparam>
-        <rosparam command="load" file="$(find asv_simulator)/config/ship1_waypoint_list.yaml" />
+        <rosparam command="load" file="$(find asv_simulator)/config/waypoints/ship1_waypoint_list.yaml" />
       </node>
 
       <param name="robot_description" textfile="$(find asv_simulator)/config/models/ship1.urdf" />
@@ -42,7 +42,7 @@
             respawn="false"
             output="screen">
         <rosparam param="u_d">3.0</rosparam>
-        <rosparam command="load" file="$(find asv_simulator)/config/ship2_waypoint_list.yaml" />
+        <rosparam command="load" file="$(find asv_simulator)/config/waypoints/ship2_waypoint_list.yaml" />
       </node>
 
       <param name="robot_description" textfile="$(find asv_simulator)/config/models/ship2.urdf" />
