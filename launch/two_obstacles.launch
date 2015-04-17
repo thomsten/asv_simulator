@@ -8,7 +8,7 @@
             respawn="false"
             output="screen">
         <rosparam param="initial_state">[0.0, 100.0, 1.57, 1.0, 0.0, 0.0]</rosparam>
-      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
+        <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
       </node>
       <node pkg="asv_simulator"
             name="LOSNode"
@@ -33,8 +33,8 @@
             type="asv_simulator_node"
             respawn="false"
             output="screen">
-        <rosparam param="initial_state">[250.0, 250.0, 3.14, 1.0, 0.0, 0.0]</rosparam>
-      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
+        <rosparam param="initial_state">[-220.0, 250.0, 0, 1.0, 0.0, 0.0]</rosparam>
+        <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
       </node>
       <node pkg="asv_simulator"
             name="LOSNode"
