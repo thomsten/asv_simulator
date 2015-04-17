@@ -5,4 +5,4 @@
 # waypoints: [[0.0, 0.0], [0.0, 500.0]]
 
 # Multiple obstacles scenario
-waypoints: [[-220.0, 250.0], [250.0, 250.0]]
+waypoints: [[250.0, 250.0], [-250.0, 250.0]]
