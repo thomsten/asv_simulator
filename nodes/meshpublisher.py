@@ -18,31 +18,32 @@ if __name__ == "__main__":
     mk.ns = 'colormap'
     mk.id = 0
     mk.type = Marker.MESH_RESOURCE
-    mk.mesh_resource = "package://asv_simulator/meshes/hovik.stl"
+    mk.mesh_resource = "package://asv_simulator/meshes/hovik.STL"
     mk.action = Marker.ADD
     mk.mesh_use_embedded_materials = True
 
     mk.pose = Pose()
 
-    mk.pose.position.x = 0.
-    mk.pose.position.y = 0.
+    mk.pose.position.x = -496.
+    mk.pose.position.y = 174.76
+    mk.pose.position.z = -8.
+    q = euler2quat(np.pi/2., 0., 0.)
 
-    q = euler2quat(0,0,np.pi)
-    print q
-
+    mk.pose.orientation.x = q[0]
+    mk.pose.orientation.y = q[1]
     mk.pose.orientation.z = q[2]
     mk.pose.orientation.w = q[3]
 
-    mk.scale.x = 35.
-    mk.scale.y = 35.
-    mk.scale.z = 10.
+    mk.scale.x = 780.
+    mk.scale.y = 780.
+    mk.scale.z = 780.
 
     mk.lifetime = rospy.Duration()
     mk.color.a = 1
     mk.color.r = 0.3
     mk.color.g = 0.6
     mk.color.b = 0.3
-    r = rospy.Rate(5)
+    r = rospy.Rate(0.5)
 
 
 
