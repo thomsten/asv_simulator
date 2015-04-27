@@ -88,14 +88,13 @@ if __name__ == "__main__":
                              rospy.Time.now(),
                              "asv",
                              "ned")
-            br.sendTransform((0,0,0),
-                             euler2quat(np.pi,0,np.pi/2),
-                             rospy.Time.now(),
-                             "ned",
-                             "map")
+            # br.sendTransform((0,0,0),
+            #                  euler2quat(np.pi,0,np.pi/2),
+            #                  rospy.Time.now(),
+            #                  "ned",
+            #                  "map")
             i += 1
             d = (time[i]-time[i-1])
-            #print "Time to sleep: %.2f seconds"%(d)
             rospy.sleep(d)
         else:
             rospy.spin()

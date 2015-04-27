@@ -18,13 +18,4 @@
           name="tf_broadcaster" />
   </group>
 
-  <!-- <group if="$(arg use_vo)"> -->
-  <!--   <node pkg="asv_ctrl_vo" -->
-  <!--         name="vo_node" -->
-  <!--         type="asv_ctrl_vo_node" -->
-  <!--         respawn="false" -->
-  <!--         output="screen"> -->
-  <!--     <remap from="cmd_vel" to="VO/cmd_vel" /> -->
-  <!--   </node> -->
-  <!-- </group> -->
 </launch>
