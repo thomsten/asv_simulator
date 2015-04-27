@@ -1,0 +1,30 @@
+<launch>
+  <arg name="vessel_model_file" default="$(find asv_simulator)/config/models/viknes.urdf" />
+  <arg name="use_vo" default="True" />
+  <arg name="namespace" default="asv" />
+  <arg name="shipname" default="asv" />
+
+  <group ns="$(arg namespace)">
+    <node pkg="asv_simulator"
+          name="$(arg shipname)"
+          type="data_publisher.py"
+          respawn="false"
+          output="screen">
+    </node>
+
+    <param name="robot_description" textfile="$(arg vessel_model_file)" />
+    <node pkg="robot_state_publisher"
+          type="state_publisher"
+          name="tf_broadcaster" />
+  </group>
+
+  <!-- <group if="$(arg use_vo)"> -->
+  <!--   <node pkg="asv_ctrl_vo" -->
+  <!--         name="vo_node" -->
+  <!--         type="asv_ctrl_vo_node" -->
+  <!--         respawn="false" -->
+  <!--         output="screen"> -->
+  <!--     <remap from="cmd_vel" to="VO/cmd_vel" /> -->
+  <!--   </node> -->
+  <!-- </group> -->
+</launch>
