@@ -20,7 +20,7 @@
 
     <node pkg="asv_path_trackers"
           name="PPNode"
-          type="asv_ctrl_pp_node.py"
+          type="asv_ctrl_los_node.py"
           respawn="false"
           output="screen">
       <rosparam param="u_d" subst_value="True">$(arg u_d)</rosparam>

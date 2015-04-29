@@ -4,6 +4,8 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /TF1
+        - /TF1/Frames1
         - /Map1
         - /ASV1
         - /ASV1/Path1
@@ -57,7 +59,7 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 9000
       Frames:
-        All Enabled: true
+        All Enabled: false
         asv:
           Value: true
         map:
@@ -78,7 +80,7 @@ Visualization Manager:
       Marker Topic: /colormap
       Name: MeshMap
       Namespaces:
-        {}
+        colormap: true
       Queue Size: 100
       Value: true
     - Alpha: 0.7
@@ -178,7 +180,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 187.726
+      Distance: 212.973
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -190,10 +192,10 @@ Visualization Manager:
         Z: 3.61991
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.3548
+      Pitch: 1.2348
       Target Frame: asv
       Value: Orbit (rviz)
-      Yaw: 4.5406
+      Yaw: 2.41924
     Saved: ~
 Window Geometry:
   Displays:
