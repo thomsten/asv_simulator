@@ -1,9 +1,6 @@
 #!/usr/bin/env python
-import numpy as np
-
-from tf.transformations import quaternion_from_euler as euler2quat
-
 import rospy
+import numpy as np
 
 from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Vector3
@@ -12,6 +9,8 @@ from geometry_msgs.msg import TwistStamped
 from sensor_msgs.msg import NavSatFix
 from sensor_msgs.msg import Imu
 from sensor_msgs.msg import MagneticField
+
+from tf.transformations import quaternion_from_euler as euler2quat
 
 DEG2RAD = np.pi/180.0
 RAD2DEG = 180.0/np.pi
@@ -119,7 +118,7 @@ class FakeASV(object):
         self.mag_pub.publish(self.mag_msg)
 
     def start(self):
-        iterator = 500
+        iterator = 0
         while not rospy.is_shutdown():
             self.publish_fix(iterator)
             self.publish_vel(iterator)
