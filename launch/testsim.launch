@@ -2,29 +2,20 @@
 
   <!-- Launch Controller -->
   <!-- <include file="$(find asv_simulator)/launch/control/xboxctrl.launch" /> -->
-  <group ns="asv">
-    <node pkg="asv_simulator"
-          name="ASVNode"
-          type="asv_simulator_node"
-          respawn="false"
-          output="screen">
-      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes2.yaml" />
-      <rosparam param="initial_state">[0.0, 0.0, 1.57, 1.,0.,0.]</rosparam>
-    </node>
-    <node pkg="asv_simulator"
-          name="LOSNode"
-          type="ctrl_LOS_guidance.py"
-          respawn="false"
-          output="screen">
-      <rosparam param="u_d">3.0</rosparam>
-      <rosparam command="load" file="$(find asv_simulator)/config/waypoint_test_list.yaml" />
-    </node>
+  <include file="$(find asv_simulator)/launch/default.launch">
+    <arg name="u_d" value="5.0" />
+    <arg name="waypoint_file" value="$(find asv_simulator)/config/waypoints/clockwise_rectangle.yaml" />
+    <arg name="vessel_model_file" value="$(find asv_simulator)/config/models/viknes.urdf" />
+    <arg name="namespace" value="asv" />
+    <arg name="shipname" value="asv" />
+    <arg name="initial_state" value="[0.0, 0.0, -1.56, 1.,0.,0.]" />
+  </include>
 
-    <param name="robot_description" textfile="$(find asv_simulator)/config/models/revolt.urdf" />
-    <node pkg="robot_state_publisher"
-          type="state_publisher"
-          name="tf_broadcaster" />
-  </group>
+  <node pkg="rosbag"
+        type="record"
+        name="rosbag_record"
+        args="-O /home/thomas/Dropbox/NTNU/master/code/python/testsim.bag /asv/state"
+        />
 
   <node pkg="rviz"
         type="rviz"

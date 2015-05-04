@@ -100,7 +100,7 @@ class Vessel
   // Other
   double Fx_min, Fx_max, Fy_min, Fy_max;
   double rudder_length;
-
+  double Fx_current, Fy_current;
   double Kp_u, Kp_psi, Kd_psi, Kp_r;
 
 };

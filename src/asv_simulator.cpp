@@ -96,6 +96,11 @@ void Vessel::initialize(ros::NodeHandle nh)
   if (!nh.getParam("Kp_r", Kp_r))
     Kp_r = 8.0;
 
+  if (!nh.getParam("Fx_current", Fx_current))
+    Fx_current = 0.0;
+  if (!nh.getParam("Fy_current", Fy_current))
+    Fy_current = 0.0;
+
   std::vector<double> initial_state;
   if (nh.getParam("initial_state", initial_state))
     {
@@ -155,9 +160,12 @@ void Vessel::updateSystem(double u_d, double psi_d, double r_d)
 
   this->updateControlInput(u_d, psi_d, r_d);
 
+  Eigen::Vector3d tau_disturbance(Fx_current, Fy_current, 0.0);
+  tau_disturbance = rot_z.inverse()*tau_disturbance;
+
   // Integrate system
   eta += DT * (rot_z * nu);
-  nu  += DT * (Minv * (tau - Cvv - Dvv));
+  nu  += DT * (Minv * (tau + tau_disturbance - Cvv - Dvv));
 
   // Keep yaw within [-PI,PI)
   eta[2] = normalize_angle(eta[2]);

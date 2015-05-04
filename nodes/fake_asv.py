@@ -60,7 +60,17 @@ class FakeASV(object):
         self.imu_rpy_data -= self.imu_rpy_data[0,:]
         self.imu_rpy_data[:,2] += np.pi
         #self.imu_rpy_data[:,2] = (np.pi - self.imu_rpy_data[:,2])
+
+        # arr = np.array([self.time_data,
+        #                 self.gps_fix_data,
+        #                 self.gps_vel_data,
+        #                 self.yaw_data,
+        #                 self.imu_gyro_data,
+        #                 self.imu_acc_data,
+        #                 self.imu_mag_data,
+        #                 self.imu_rpy_data])
         
+        # np.save("/home/thomas/Dropbox/NTNU/master/code/python/data.npy", arr)
 
     def publish_fix(self, it):
         if it == 0:
@@ -130,6 +140,7 @@ class FakeASV(object):
                 d = (self.time_data[iterator] - self.time_data[iterator-1])
                 rospy.sleep(d)
             else:
+                rospy.logwarn("Shitshit: %d", iterator)
                 break
 
         rospy.spin()

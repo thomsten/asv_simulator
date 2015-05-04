@@ -19,7 +19,7 @@
     </node>
 
     <node pkg="asv_path_trackers"
-          name="PPNode"
+          name="LOSNode"
           type="asv_ctrl_los_node.py"
           respawn="false"
           output="screen">
