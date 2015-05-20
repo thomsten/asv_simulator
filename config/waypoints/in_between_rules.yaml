@@ -1,2 +1,2 @@
 # Coming in from the right. In between crossing from right and overtaking.
-waypoints: [[-25, 25.0], [50, 200]]
+waypoints: [[35, 0.0], [-50, 200]]

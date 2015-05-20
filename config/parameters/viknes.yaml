@@ -34,8 +34,8 @@ Fy_max:   645.0
 
 # Other
 rudder_length: 4.0
-Fx_current: 500.0
-Fy_current: 500.0
+Fx_current: 0.0
+Fy_current: 0.0
 
 
 # Control parameters

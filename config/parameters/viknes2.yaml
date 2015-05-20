@@ -1,5 +1,5 @@
 # Parameters for Viknes 830 based on Loe, 2008.
-radius: 5.0 # m (In reality 4.15 m)
+radius: 8.0 # m (In reality 4.15 m)
 
 mass: 3300.0 # kg
 inertia: 1320.0 # kg/m2
