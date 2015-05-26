@@ -2,6 +2,7 @@
 #define ASV_SIMULATOR_H
 
 #include <Eigen/Dense>
+#include "wave_filter.h"
 
 /**
  * A General Class for simulating 3DOF surface vessels.
@@ -55,6 +56,8 @@ class Vessel
    */
   void getState(Eigen::Vector3d &eta, Eigen::Vector3d &nu);
 
+  void getWaveNoise(Eigen::Vector3d &wave_noise);
+
   /** Get the update interval (used to determine ROS loop rate)
    */
   double getDT();
@@ -78,11 +81,15 @@ class Vessel
   
   Eigen::Vector3d eta;
   Eigen::Vector3d nu; 
-  Eigen::Vector3d tau;
+  Eigen::Vector3d tau, tau_waves;
 
   Eigen::Matrix3d Minv;
   Eigen::Vector3d Cvv;
   Eigen::Vector3d Dvv;
+
+  WaveFilter wave_filter_x;
+  WaveFilter wave_filter_y;
+  WaveFilter wave_filter_psi;
 
   double DT;
 
@@ -104,7 +111,5 @@ class Vessel
   double Kp_u, Kp_psi, Kd_psi, Kp_r;
 
 };
-
-
 
 #endif

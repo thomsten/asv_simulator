@@ -1,5 +1,7 @@
 #include "ros/ros.h"
+#include "wave_filter.h"
 #include "asv_simulator.h"
+
 
 // Standard libraries
 #include <cmath>
@@ -21,6 +23,8 @@ Vessel::Vessel()
 {
   eta = Eigen::Vector3d::Zero();
   nu  = Eigen::Vector3d::Zero();
+  tau_waves = Eigen::Vector3d::Zero();
+  tau = Eigen::Vector3d::Zero();
 }
 
 Vessel::~Vessel() {}
@@ -110,6 +114,43 @@ void Vessel::initialize(ros::NodeHandle nh)
           nu[2]  = initial_state[5];
         }
     }
+
+  // Initialize wave filters
+  double sigma, omega0, lambda, gain;
+  if (nh.getParam("sigma_x", sigma) &&
+      nh.getParam("omega0_x", omega0) &&
+      nh.getParam("lambda_x", lambda) &&
+      nh.getParam("gain_x", gain))
+    {
+      if (gain > 0.0)
+        {
+          wave_filter_x.initialize(sigma, omega0, lambda, gain, DT);
+          ROS_INFO("Enabled wave filter x!");
+        }
+    }
+  if (nh.getParam("sigma_y", sigma) &&
+      nh.getParam("omega0_y", omega0) &&
+      nh.getParam("lambda_y", lambda) &&
+      nh.getParam("gain_y", gain))
+    {
+      if (gain > 0.0)
+        {
+          wave_filter_y.initialize(sigma, omega0, lambda, gain, DT);
+          ROS_INFO("Enabled wave filter y!");
+        }
+    }
+  if (nh.getParam("sigma_psi", sigma) &&
+      nh.getParam("omega0_psi", omega0) &&
+      nh.getParam("lambda_psi", lambda) &&
+      nh.getParam("gain_psi", gain))
+    {
+      if (gain > 0.0)
+        {
+          wave_filter_psi.initialize(sigma, omega0, lambda, gain, DT);
+          ROS_INFO("Enabled wave filter psi!");
+        }
+    }
+
 }
 
 double Vessel::getDT()
@@ -134,6 +175,11 @@ void Vessel::getState(Eigen::Vector3d &eta2, Eigen::Vector3d &nu2)
   nu2 = nu;
 }
 
+void Vessel::getWaveNoise(Eigen::Vector3d &wave_noise)
+{
+  wave_noise = tau_waves;
+}
+
 void Vessel::updateSystem(double u_d, double psi_d, double r_d)
 {
   // Ensure psi_d is "compatible" with psi
@@ -155,9 +201,13 @@ void Vessel::updateSystem(double u_d, double psi_d, double r_d)
 
   this->updateControlInput(u_d, psi_d, r_d);
 
+  tau_waves[0] = wave_filter_x.updateFilter();
+  tau_waves[1] = wave_filter_y.updateFilter();
+  tau_waves[2] = wave_filter_psi.updateFilter();
+
   // Integrate system
   eta += DT * (rot_z * nu);
-  nu  += DT * (Minv * (tau - Cvv - Dvv));
+  nu  += DT * (Minv * (tau + tau_waves - Cvv - Dvv));
 
   // Keep yaw within [-PI,PI)
   eta[2] = normalize_angle(eta[2]);

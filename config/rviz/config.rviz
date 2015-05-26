@@ -4,6 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Grid1
         - /TF1/Frames1
         - /ASV1/Path1
       Splitter Ratio: 0.5
@@ -35,7 +36,7 @@ Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 0.5
-      Cell Size: 50
+      Cell Size: 5
       Class: rviz/Grid
       Color: 160; 160; 164
       Enabled: true
@@ -61,8 +62,6 @@ Visualization Manager:
           Value: true
         map:
           Value: true
-        obstacles/ship1:
-          Value: true
       Marker Scale: 50
       Name: TF
       Show Arrows: true
@@ -71,8 +70,6 @@ Visualization Manager:
       Tree:
         map:
           asv:
-            {}
-          obstacles/ship1:
             {}
       Update Interval: 0
       Value: true
@@ -109,7 +106,7 @@ Visualization Manager:
           Marker Topic: vo_markers
           Name: VO_MARKERS
           Namespaces:
-            asv: true
+            {}
           Queue Size: 10
           Value: true
         - Alpha: 1
@@ -161,11 +158,6 @@ Visualization Manager:
             Expand Link Details: false
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
-            obstacles/ship1:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
           Name: Ship1
           Robot Description: obstacles/ship1/robot_description
           TF Prefix: ""
@@ -177,7 +169,7 @@ Visualization Manager:
           Marker Topic: /obstacles/ship1/waypoints
           Name: Ship1Markers
           Namespaces:
-            waypoints: true
+            {}
           Queue Size: 100
           Value: true
         - Angle Tolerance: 0.1
@@ -216,7 +208,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 454.862
+      Distance: 118.923
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -228,10 +220,10 @@ Visualization Manager:
         Z: 0
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.914797
+      Pitch: 1.2798
       Target Frame: asv
       Value: Orbit (rviz)
-      Yaw: 4.70663
+      Yaw: 0.433444
     Saved: ~
 Window Geometry:
   Displays:
@@ -251,5 +243,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 960
-  X: 2860
-  Y: 24
+  X: 2840
+  Y: 14

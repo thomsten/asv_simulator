@@ -8,16 +8,16 @@
           type="asv_simulator_node"
           respawn="false"
           output="screen">
-      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes2.yaml" />
+      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
       <rosparam param="initial_state">[0.0, 0.0, 1.57, 1.,0.,0.]</rosparam>
     </node>
-    <node pkg="asv_simulator"
+    <node pkg="asv_path_trackers"
           name="LOSNode"
-          type="ctrl_LOS_guidance.py"
+          type="asv_ctrl_los_node.py"
           respawn="false"
           output="screen">
       <rosparam param="u_d">3.0</rosparam>
-      <rosparam command="load" file="$(find asv_simulator)/config/waypoint_test_list.yaml" />
+      <rosparam command="load" file="$(find asv_simulator)/config/waypoints/waypoint_test_list.yaml" />
     </node>
 
     <param name="robot_description" textfile="$(find asv_simulator)/config/models/revolt.urdf" />
