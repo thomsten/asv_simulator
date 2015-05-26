@@ -207,7 +207,7 @@ void Vessel::updateSystem(double u_d, double psi_d, double r_d)
   this->updateControlInput(u_d, psi_d, r_d);
 
   Eigen::Vector3d tau_const_disturbance(Fx_current, Fy_current, 0.0);
-  tau_disturbance = rot_z.inverse()*tau_disturbance;
+  tau_const_disturbance = rot_z.inverse()*tau_const_disturbance;
 
   tau_waves[0] = wave_filter_x.updateFilter();
   tau_waves[1] = wave_filter_y.updateFilter();
