@@ -4,6 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Grid1
         - /TF1/Frames1
         - /ASV1/Path1
       Splitter Ratio: 0.5
@@ -35,7 +36,7 @@ Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 0.5
-      Cell Size: 50
+      Cell Size: 5
       Class: rviz/Grid
       Color: 160; 160; 164
       Enabled: true
@@ -105,7 +106,7 @@ Visualization Manager:
           Marker Topic: vo_markers
           Name: VO_MARKERS
           Namespaces:
-            asv: true
+            {}
           Queue Size: 10
           Value: true
         - Alpha: 1
@@ -207,7 +208,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 275.226
+      Distance: 118.923
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -219,10 +220,10 @@ Visualization Manager:
         Z: 0
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.0048
+      Pitch: 1.2798
       Target Frame: asv
       Value: Orbit (rviz)
-      Yaw: 6.08163
+      Yaw: 0.433444
     Saved: ~
 Window Geometry:
   Displays:
@@ -241,6 +242,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1920
-  X: 1920
-  Y: 24
+  Width: 960
+  X: 2840
+  Y: 14

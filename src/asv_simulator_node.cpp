@@ -37,11 +37,12 @@ int main(int argc, char* argv[])
   tf::TransformBroadcaster tf = tf::TransformBroadcaster();
   ros::Publisher pose_pub = nh.advertise<geometry_msgs::PoseStamped>("pose", 10);
   ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("state", 10);
+  ros::Publisher noise_pub = nh.advertise<geometry_msgs::Vector3>("wave_noise", 10);
+
   ros::Subscriber cmd_sub = nh.subscribe("cmd_vel", 1, &VesselNode::cmdCallback, &my_vessel_node);
 
 
-
-  my_vessel_node.initialize(&tf, &pose_pub, &odom_pub, &cmd_sub, &my_vessel);
+  my_vessel_node.initialize(&tf, &pose_pub, &odom_pub,  &noise_pub, &cmd_sub, &my_vessel);
   my_vessel_node.start();
 
   ros::shutdown();
@@ -53,6 +54,7 @@ VesselNode::VesselNode(): theVessel_(NULL),
                           tf_(NULL),
                           pose_pub_(NULL),
                           odom_pub_(NULL),
+                          noise_pub_(NULL),
                           cmd_sub_(NULL),
                           u_d_(0.0),
                           psi_d_(0.0),
@@ -64,6 +66,7 @@ VesselNode::~VesselNode(){
 void VesselNode::initialize(tf::TransformBroadcaster* tf,
                             ros::Publisher *pose_pub,
                             ros::Publisher *odom_pub,
+                            ros::Publisher *noise_pub,
                             ros::Subscriber *cmd_sub,
                             Vessel *vessel)
 {
@@ -72,6 +75,7 @@ void VesselNode::initialize(tf::TransformBroadcaster* tf,
       tf_ = tf;
       pose_pub_ = pose_pub;
       odom_pub_ = odom_pub;
+      noise_pub_ = noise_pub;
       cmd_sub_ = cmd_sub;
 
       theVessel_ = vessel;
@@ -105,10 +109,11 @@ void VesselNode::publishData()
 
   static int counter = 0;
 
-  Eigen::Vector3d eta, nu;
+  Eigen::Vector3d eta, nu, wave_noise;
 
   /// @todo This could be done with less overhead
   theVessel_->getState(eta, nu);
+
 
   tf::Transform transform;
   nav_msgs::Odometry odom;
@@ -149,6 +154,14 @@ void VesselNode::publishData()
   pose_pub_->publish(pose);
 
   ++counter;
+
+  static geometry_msgs::Vector3 v3_noise;
+
+  theVessel_->getWaveNoise(wave_noise);
+  v3_noise.x = wave_noise[0];
+  v3_noise.y = wave_noise[1];
+  v3_noise.z = wave_noise[2];
+  noise_pub_->publish(v3_noise);
 }
 
 void VesselNode::cmdCallback(const geometry_msgs::Twist::ConstPtr& msg)

@@ -2,14 +2,24 @@
 
   <!-- Launch Controller -->
   <!-- <include file="$(find asv_simulator)/launch/control/xboxctrl.launch" /> -->
-  <include file="$(find asv_simulator)/launch/default.launch">
-    <arg name="u_d" value="5.0" />
-    <arg name="waypoint_file" value="$(find asv_simulator)/config/waypoints/clockwise_rectangle.yaml" />
-    <arg name="vessel_model_file" value="$(find asv_simulator)/config/models/viknes.urdf" />
-    <arg name="namespace" value="asv" />
-    <arg name="shipname" value="asv" />
-    <arg name="initial_state" value="[0.0, 0.0, -1.56, 1.,0.,0.]" />
-  </include>
+
+  <group ns="asv">
+    <node pkg="asv_simulator"
+          name="ASVNode"
+          type="asv_simulator_node"
+          respawn="false"
+          output="screen">
+      <rosparam command="load" file="$(find asv_simulator)/config/parameters/viknes.yaml" />
+      <rosparam param="initial_state">[0.0, 0.0, 1.57, 1.,0.,0.]</rosparam>
+    </node>
+    <node pkg="asv_path_trackers"
+          name="LOSNode"
+          type="asv_ctrl_los_node.py"
+          respawn="false"
+          output="screen">
+      <rosparam param="u_d">3.0</rosparam>
+      <rosparam command="load" file="$(find asv_simulator)/config/waypoints/waypoint_test_list.yaml" />
+    </node>
 
   <node pkg="rosbag"
         type="record"

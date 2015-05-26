@@ -40,6 +40,6 @@
           name="vo_node"
           type="asv_ctrl_vo_node"
           respawn="false"
-          output="screen"/>
+          output="screen" />
   </group>
 </launch>

@@ -47,3 +47,18 @@ Kp_r: 8.0
 # Model update interval
 dt: 0.05
 
+# Wave filter parameters
+# sigma_x:  25000.8064
+# omega0_x: 0.7823
+# lambda_x: 0.12
+# gain_x:   1.0
+
+# sigma_y:  25000.3874
+# omega0_y: 0.9
+# lambda_y: 0.15
+# gain_y:   1.0
+
+# sigma_psi:  43500.2344
+# omega0_psi: 0.8
+# lambda_psi: 0.1017
+# gain_psi:   1.0

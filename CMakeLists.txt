@@ -108,10 +108,11 @@ include_directories(
 ## Declare a cpp library
 add_library(asv_simulator
   src/asv_simulator.cpp
+  src/wave_filter.cpp
 )
 
 ## Declare a cpp executable
-add_executable(asv_simulator_node src/asv_simulator_node.cpp src/asv_simulator.cpp)
+add_executable(asv_simulator_node src/asv_simulator_node.cpp src/asv_simulator.cpp src/wave_filter.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes

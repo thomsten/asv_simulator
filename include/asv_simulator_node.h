@@ -19,6 +19,7 @@ class VesselNode
   void initialize(tf::TransformBroadcaster* tf,
                   ros::Publisher *pose_pub,
                   ros::Publisher *odom_pub,
+                  ros::Publisher *noise_pub,
                   ros::Subscriber *cmd_sub,
                   Vessel *vessel);
   void cmdCallback(const geometry_msgs::Twist::ConstPtr& msg);
@@ -37,6 +38,7 @@ class VesselNode
   tf::TransformBroadcaster *tf_;
   ros::Publisher *pose_pub_;
   ros::Publisher *odom_pub_;
+  ros::Publisher *noise_pub_;
   ros::Subscriber *cmd_sub_;
 
   double u_d_;
