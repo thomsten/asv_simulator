@@ -168,8 +168,6 @@ void VesselNode::cmdCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
   ROS_INFO_ONCE("Received control input!");
 
-  //boost::mutex::scoped_lock lock(twist_mutex_);
-
   u_d_ = msg->linear.x;
   psi_d_ = msg->angular.y;
   r_d_ = msg->angular.z;

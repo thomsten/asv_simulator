@@ -1,5 +1,5 @@
 # Parameters for Viknes 830 based on Loe, 2008.
-radius: 8.0 # m (In reality 4.15 m)
+radius: 10.0 # m (In reality 4.15 m)
 
 mass: 3980.0 # kg
 inertia: 19703.0 # kg/m2
@@ -48,17 +48,17 @@ Kp_r: 8.0
 dt: 0.05
 
 # Wave filter parameters
-# sigma_x:  25000.8064
-# omega0_x: 0.7823
-# lambda_x: 0.12
-# gain_x:   1.0
+sigma_x:  25000.8064
+omega0_x: 0.7823
+lambda_x: 0.12
+gain_x:   1.0
 
-# sigma_y:  25000.3874
-# omega0_y: 0.9
-# lambda_y: 0.15
-# gain_y:   1.0
+sigma_y:  25000.3874
+omega0_y: 0.9
+lambda_y: 0.15
+gain_y:   1.0
 
-# sigma_psi:  43500.2344
-# omega0_psi: 0.8
-# lambda_psi: 0.1017
-# gain_psi:   1.0
+sigma_psi:  43500.2344
+omega0_psi: 0.8
+lambda_psi: 0.1017
+gain_psi:   1.0

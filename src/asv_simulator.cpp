@@ -31,6 +31,7 @@ Vessel::~Vessel() {}
 
 void Vessel::initialize(ros::NodeHandle nh)
 {
+  // Get all parameters from the parameter server
   if (!nh.getParam("mass", M))
     M = 3980.0;
   if (!nh.getParam("inertia", I_z))
@@ -239,6 +240,7 @@ void Vessel::updateControlInput(double u_d, double psi_d, double r_d)
       Fy *= 1.0 / rudder_length;
     }
 
+  // Saturate
   if (Fx < Fx_min)
     Fx = Fx_min;
   if (Fx > Fx_max)
@@ -256,7 +258,6 @@ void Vessel::updateControlInput(double u_d, double psi_d, double r_d)
 
 double normalize_angle(double val)
 {
-
   if (isinf(val))
     return val;
 
